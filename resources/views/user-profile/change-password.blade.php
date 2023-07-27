@@ -4,7 +4,13 @@
     @include('include.userprofile-nav')
 
     <div class="container py-5">
-
+        <div class="row pb-4 ">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
         <div class="pass-main">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -28,11 +34,11 @@
                                         </svg>
                                     </span>
                                     <span class="input-style d-flex align-items-center justify-content-center">
-                                        <input type="password" name="current_password"
-                                            class="form-control border border-0 @error('current_password') is-invalid @enderror"
+                                        <input type="password" name="current_password" class="form-control border border-0"
                                             placeholder="Current password" />
                                     </span>
                                 </div>
+
                                 @error('current_password')
                                     <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -56,8 +62,7 @@
                                         </svg>
                                     </span>
                                     <span class="input-style d-flex align-items-center justify-content-center">
-                                        <input type="password" name="password"
-                                            class="form-control border border-0 @error('password') is-invalid @enderror"
+                                        <input type="password" name="password" class="form-control border border-0"
                                             placeholder="New password" />
                                     </span>
                                 </div>

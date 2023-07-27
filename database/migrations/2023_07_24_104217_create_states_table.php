@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('posts', function (Blueprint $table) {
-           $table->Increments('id');
-           $table->string('slug');
-           $table->string('title');
-           $table->longText('description');
-           $table->string('image_path');
-           $table->timestamps();
-       });
+        Schema::create('states', function (Blueprint $table) {
+            $table->id();
+            $table->string('state');
+            $table->unsignedBigInteger('country_id'); 
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('states');
     }
 };

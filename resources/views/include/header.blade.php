@@ -4,20 +4,32 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Demo Project</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('Images/Vector.svg') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/u86ko7vyz355hmsu76jqehfauz9bynke5cxjhqyvg2qd77uj/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+
+    <!-- Add Lightbox2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+    <!-- Add Lightbox2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+
+
+
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -32,7 +44,7 @@
             <div class="row pt-4 pb-2">
 
                 <div class="col-lg-3 ps-5">
-                    <a href="{{ route('home') }}" style="text-decoration: none; color: inherit;">
+                    <a href="{{ route('index') }}" style="text-decoration: none; color: inherit;">
                         <img class="float-left" src="{{ asset('Images/logo.png') }}" alt="Logo" />
                     </a>
                 </div>
@@ -55,9 +67,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('about') }}">About Us</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('blog') }}">Blog</a>
-                                </li>
+                                @guest
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('blog') }}">Blog</a>
+                                    </li>
+                                @endguest
+                                @auth
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('user.blog') }}">Blog</a>
+                                    </li>
+                                @endauth
+
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse justify-content-end pt-3" id="navbarNav">

@@ -18,8 +18,11 @@
                     @if ($Image->albumid == $id)
                         <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
                             <div class="image-container">
-                                <img src="{{ asset('album-images/' . $Image->image_path) }}" class="img-fluid"
-                                    alt="Image">
+                                <a href="{{ asset('album-images/' . $Image->image_path) }}" data-lightbox="album"
+                                    data-title="{{ $Image->caption }}">
+                                    <img src="{{ asset('album-images/' . $Image->image_path) }}" class="img-fluid"
+                                        alt="{{ $Image->caption }}">
+                                </a>
                                 <form action="/AlbumImages/{{ $Image->id }}" method="POST" id="deleteForm"
                                     class="deleteForm mt-2">
                                     @csrf
@@ -32,16 +35,17 @@
                     @endif
                 @endforeach
             </div>
-
         </div>
-    </div>
     </div>
 @endsection
 
-<script>
-    function confirmDelete(event) {
-        if (!confirm('Are you sure you want to delete this image?')) {
-            event.preventDefault();
+@section('scripts')
+    @parent
+    <script>
+        function confirmDelete(event) {
+            if (!confirm('Are you sure you want to delete this image?')) {
+                event.preventDefault();
+            }
         }
-    }
-</script>
+    </script>
+@endsection

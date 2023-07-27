@@ -14,11 +14,11 @@
                         <div class="form-group">
                             <div class="d-flex border border-1 rounded-3" style="height: 52px;">
                                 <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input type="file" name="image" class="form-control border border-0" multiple>
+                                    <input type="file" name="image[]" class="form-control border border-0" multiple>
                                 </span>
                             </div>
                         </div>
-                        @error('image')
+                        @error('image.*')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
 

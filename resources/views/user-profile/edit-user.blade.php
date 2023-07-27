@@ -111,17 +111,17 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="pb-2 ps-1">Country</label>
-                                <select name="country" class="form-select" style="background-color: #F9F9F9; height: 50px;">
+                                <select id="country-dd" name="country_id" class="form-select"
+                                    style="background-color: #F9F9F9; height: 50px;">
                                     <option value="" selected disabled>Select Country</option>
-                                    <option value="India" @if (auth()->user()->country == 'India') selected @endif>India
-                                    </option>
-                                    <option value="United States" @if (auth()->user()->country == 'United States') selected @endif>
-                                        United States</option>
-                                    <option value="Canada" @if (auth()->user()->country == 'Canada') selected @endif>Canada
-                                    </option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}"
+                                            @if (auth()->user()->country_id == $country->id) selected @endif>{{ $country->country }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            @error('country')
+                            @error('country_id')
                                 <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -129,7 +129,8 @@
 
                         </div>
 
-                        <div class="col-lg-6 p-2">
+
+                        <div class="col-lg-6 ps-4">
                             <label class="form-label" style="padding-top: 10px">Hobbies</label>
                             <div class="mb-3">
                                 <div class="align-items-center justify-content-center">
@@ -184,16 +185,27 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="col-lg-6 pt-3">
+                            <div id="state-container" style="display: none;">
+                                <div class="form-group">
+                                    <label class="pb-2 ps-1">State</label>
+                                    <select id="state-dd" name="state_id" class="form-select"
+                                        style="background-color: #F9F9F9; height: 50px;">
+
+                                    </select>
+                                </div>
+                                @error('state_id')
+                                    <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
 
 
                     </div>
-                    <div class="col-lg-6 p-2">
-                        <!-- state -->
-                        <div id="statesContainer"></div>
-                        <input type="hidden" id="selectedStateID" value="" name="selected_state_id"
-                            value="">
-                    </div>
+
 
                     <div class="row pt-3 ps-1">
                         <div class="col-ld-12 col-md-12 col-sm-12 d-flex align-items-center ">
@@ -221,6 +233,7 @@
 
                             <div class="userinfo ps-3 pt-2">
                                 <span class=" fs-6">
+                                    {{ auth()->user()->email }}
                                 </span>
                                 <p class="fs-6" style="color:#a7a6a6">1 month ago</p>
                             </div>

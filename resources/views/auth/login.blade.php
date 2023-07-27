@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container py-5">
-        @if (session('success'))
+        @if (session('status'))
             <div class="alert alert-success">
-                {{ session('success') }}
+                {{ session('status') }}
             </div>
         @endif
         <div class="row">

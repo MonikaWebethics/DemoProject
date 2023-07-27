@@ -11,11 +11,6 @@ use App\Http\Requests\Admin\StoreAlbumRequest;
 
 class AlbumController extends Controller
 {
-    public function __construct()
-  {
-      $this->middleware('auth');
-  }
-
     /**
      * Display a listing of the resource.
      */
@@ -108,4 +103,22 @@ class AlbumController extends Controller
             return redirect()->route('album', ['id' => $id])->with('message', 'Album not found or already deleted.');
         }
     }
+
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $request->get('query');
+    
+            if ($query !== '') {
+                $data = Album::where('title', 'like', '%' . $query . '%')
+                    ->get();
+            } else {
+                $data = Album::all();
+            }
+    
+            return response()->json(['data' => $data]);
+        }
+    }
+    
 }

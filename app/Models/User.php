@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,11 +23,24 @@ class User extends Authenticatable
         'lname',
         'email',
         'password',
-        'country',
+        'country_id',
+        'state_id',
         'gender',
         'hobbies',
     ];
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+    public function posts()
+{
+    return $this->hasMany(Post::class);
+}
     /**
      * The attributes that should be hidden for serialization.
      *

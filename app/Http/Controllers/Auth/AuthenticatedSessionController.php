@@ -12,11 +12,6 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('destroy');
-    }
     /**
      * Display the login view.
      */
@@ -34,14 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::USER);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    
-     public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 

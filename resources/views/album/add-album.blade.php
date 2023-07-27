@@ -16,7 +16,7 @@
                             <div class="pb-3">
                                 <div class="d-flex border border-1 rounded-3" style="height: 52px;">
                                     <span class="input-style d-flex align-items-center justify-content-center">
-                                        <input type="text" value="" name="title" width="90%"
+                                        <input type="text" value="{{ old('title') }}" name="title" width="90%"
                                             class="form-control border border-0" placeholder="Enter Your Album Name">
                                     </span>
                                 </div>

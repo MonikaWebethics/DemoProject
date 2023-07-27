@@ -14,7 +14,7 @@
                         <!-- First Name -->
                         <label for="First Name" class="form-label fw-bold label-log"
                             style="color: #6b6c6f">{{ __('First Name') }}</label>
-                        <div class="mb-3 d-flex border border-1">
+                        <div class="input-style mb-3 d-flex border border-1">
                             <!-- Input Icon -->
                             <span class="py-lg-2 ps-lg-3 py-2 ps-2" style="color: #c8c8c8">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor"
@@ -25,11 +25,8 @@
                                 </svg>
                             </span>
                             <!-- Input Field -->
-                            <span class="input-style d-flex align-items-center justify-content-center">
-                                <input id="fname" type="text" placeholder="Johan"
-                                    class="form-control border border-0 " name="fname" value="{{ old('fname') }}"
-                                    autocomplete="fname" autofocus>
-                            </span>
+                            <input id="fname" type="text" placeholder="Johan" class="form-control border border-0 "
+                                name="fname" value="{{ old('fname') }}" autocomplete="fname" autofocus>
                         </div>
                         <!-- First Name Error -->
                         @error('fname')
@@ -42,7 +39,7 @@
                         <div>
                             <label for="last name" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Last Name') }}</label>
-                            <div class="mb-3 d-flex  border border-1">
+                            <div class="input-style mb-3 d-flex  border border-1">
                                 <span class="py-lg-2 ps-lg-3 py-2 ps-2" style="color: #c8c8c8">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20"
                                         fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -51,12 +48,8 @@
                                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                     </svg>
                                 </span>
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="lname" type="text" placeholder="Deo"
-                                        class="form-control border border-0 " name="lname" value="{{ old('lname') }}"
-                                        autocomplete="lname" autofocus>
-
-                                </span>
+                                <input id="lname" type="text" placeholder="Deo" class="form-control border border-0 "
+                                    name="lname" value="{{ old('lname') }}" autocomplete="lname" autofocus>
                             </div>
                         </div>
                         @error('lname')
@@ -69,7 +62,7 @@
                         <div>
                             <label for="InputEmail" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Email Address') }}</label>
-                            <div class="mb-3 d-flex  border border-1">
+                            <div class="input-style mb-3 d-flex  border border-1">
                                 <span class="py-lg-2 ps-lg-3 py-2 ps-2">
                                     <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -78,11 +71,9 @@
                                             fill="#C8C8C8"></path>
                                     </svg>
                                 </span>
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="email" type="email" placeholder="Your e-mail"
-                                        class="form-control border border-0 " name="email" value="{{ old('email') }}"
-                                        autocomplete="email">
-                                </span>
+                                <input id="email" type="email" placeholder="Your e-mail"
+                                    class="form-control border border-0 " name="email" value="{{ old('email') }}"
+                                    autocomplete="email">
                             </div>
                         </div>
                         @error('email')
@@ -95,7 +86,7 @@
                         <div>
                             <label for="InputPassword1" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Password') }}</label>
-                            <div class=" mb-3 d-flex justify-content-between    border border-1">
+                            <div class="input-style mb-3 d-flex justify-content-between    border border-1">
 
                                 <span class="py-lg-2 ps-lg-3 py-2 ps-2">
                                     <svg width="27" height="15" viewBox="0 0 27 15" fill="none"
@@ -105,13 +96,8 @@
                                             fill="#C8C8C8"></path>
                                     </svg>
                                 </span>
-
-
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="password" type="password" placeholder="Enter password"
-                                        class="form-control border border-0 " name="password"
-                                        autocomplete="new-password">
-                                </span>
+                                <input id="password" type="password" placeholder="Enter password"
+                                    class="form-control border border-0 " name="password" autocomplete="new-password">
 
                                 <span class="pe-lg-3 py-2 pe-2 ms-auto">
                                     <svg width="20" height="14" viewBox="0 0 20 14" fill="none"
@@ -133,7 +119,7 @@
                         <div>
                             <label for="InputPassword1" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Confirm Password') }}</label>
-                            <div class=" mb-3 d-flex justify-content-between    border border-1">
+                            <div class="input-style mb-3 d-flex justify-content-between    border border-1">
 
                                 <span class="py-lg-2 ps-lg-3 py-2 ps-2">
                                     <svg width="27" height="15" viewBox="0 0 27 15" fill="none"
@@ -143,13 +129,9 @@
                                             fill="#C8C8C8"></path>
                                     </svg>
                                 </span>
-
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="password-confirm" type="password" placeholder="Enter password"
-                                        class="form-control border border-0" name="password_confirmation"
-                                        autocomplete="new-password">
-
-                                </span>
+                                <input id="password-confirm" type="password" placeholder="Enter password"
+                                    class="form-control border border-0" name="password_confirmation"
+                                    autocomplete="new-password">
                                 <span class="pe-lg-3 py-2 pe-2 ms-auto">
                                     <svg width="20" height="14" viewBox="0 0 20 14" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +150,7 @@
 
                         <!-- Country -->
                         <label class="form-label fw-bold label-log" style="color: #6b6c6f">{{ __('Country') }}</label>
-                        <div class="mb-3 d-flex justify-content-between border border-1">
+                        <div class="input-style mb-3 d-flex justify-content-between border border-1">
                             <span class="py-lg-2 ps-lg-3 py-2 ps-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#C8C8C8"
                                     class="bi bi-globe-central-south-asia" viewBox="0 0 16 16">
@@ -178,29 +160,53 @@
                             </span>
                             <span class="d-flex align-items-center justify-content-center flex-grow-1">
                                 <div class="form-group border-0 w-100">
-                                    <select name="country" class="form-select h-100 bg-transparent border-0 fw-bold"
+                                    <select id="country-dd" name="country_id"
+                                        class="form-select h-100 bg-transparent border-0 fw-bold"
                                         style="outline: none; box-shadow: none; color: #C8C8C8;">
                                         <option value="" selected disabled>Select Country</option>
-                                        <option value="India" @if (old('country') == 'India') selected @endif>India
-                                        </option>
-                                        <option value="United States" @if (old('country') == 'United States') selected @endif>
-                                            United States</option>
-                                        <option value="Canada" @if (old('country') == 'Canada') selected @endif>Canada
-                                        </option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}"
+                                                @if (old('country_id') == $country->id) selected @endif>{{ $country->country }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </span>
                         </div>
-                        @error('country')
+                        @error('country_id')
                             <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
 
-                        {{-- <!-- state -->
-          <div id="statesContainer"></div>
-          <input type="hidden" id="selectedStateID" name="selected_state_id" value=""> --}}
+                        {{-- State --}}
+                        <div id="state-container" style="display: none;">
+                            <label class="form-label fw-bold label-log"
+                                style="color: #6b6c6f">{{ __('State') }}</label>
+                            <div class="mb-3 d-flex justify-content-between border border-1">
+                                <span class="py-lg-2 ps-lg-3 py-2 ps-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#C8C8C8"
+                                        class="bi bi-globe-central-south-asia" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM4.882 1.731a.482.482 0 0 0 .14.291.487.487 0 0 1-.126.78l-.291.146a.721.721 0 0 0-.188.135l-.48.48a1 1 0 0 1-1.023.242l-.02-.007a.996.996 0 0 0-.462-.04 7.03 7.03 0 0 1 2.45-2.027Zm-3 9.674.86-.216a1 1 0 0 0 .758-.97v-.184a1 1 0 0 1 .445-.832l.04-.026a1 1 0 0 0 .152-1.54L3.121 6.621a.414.414 0 0 1 .542-.624l1.09.818a.5.5 0 0 0 .523.047.5.5 0 0 1 .724.447v.455a.78.78 0 0 0 .131.433l.795 1.192a1 1 0 0 1 .116.238l.73 2.19a1 1 0 0 0 .949.683h.058a1 1 0 0 0 .949-.684l.73-2.189a1 1 0 0 1 .116-.238l.791-1.187A.454.454 0 0 1 11.743 8c.16 0 .306.084.392.218.557.875 1.63 2.282 2.365 2.282a.61.61 0 0 0 .04-.001 7.003 7.003 0 0 1-12.658.905Z" />
+                                    </svg>
+                                </span>
+                                <span class="d-flex align-items-center justify-content-center flex-grow-1">
+                                    <div class="form-group border-0 w-100">
+                                        <select id="state-dd"
+                                            name="state_id"class="form-select h-100 bg-transparent border-0 fw-bold"
+                                            style="outline: none; box-shadow: none; color: #C8C8C8;">
 
+                                        </select>
+                                    </div>
+                                </span>
+                            </div>
+                            @error('state_id')
+                                <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                         <!-- Gender -->
                         <label class="form-label fw-bold label-log" style="color: #6b6c6f">{{ __('Gender') }}</label>

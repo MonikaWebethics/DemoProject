@@ -7,14 +7,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\Admin\StoreImageRequest;
+use Illuminate\Support\Str;
 
 class AlbumImagesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      * @param  string $id
@@ -47,12 +43,18 @@ class AlbumImagesController extends Controller
      */
     public function store(StoreImageRequest $request, $id)
     {
-        $newImageName= uniqid() . '-' . $request->title . '-' . $request->image->extension();
-        $request->image->move(public_path('album-images'),$newImageName);
-        Albumimages::create([
-            'image_path'=>  $newImageName,
-            'albumid'=>  $id,
-        ]);
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $newImageName = uniqid() . '-' . Str::slug($request->title) . '-' . $file->getClientOriginalExtension();
+                $file->move(public_path('album-images'), $newImageName);
+    
+                Albumimages::create([
+                    'image_path' => $newImageName,
+                    'albumid' => $id,
+                ]);
+            }
+        }
+    
         return redirect()->route('albumImages', ['id' => $id])
        ->with('message','Image has been added!');
     }
