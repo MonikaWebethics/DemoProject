@@ -16,21 +16,20 @@ class BlogController extends Controller
 {
     public function blog(Request $request)
     {
-        // Fetch published posts, order them by 'updated_at' in descending order, and paginate the results (2 posts per page)
-        $publishedPosts = Post::where('published', true)
+        $posts = Post::where('published', true)
             ->orderBy('updated_at', 'DESC')
             ->paginate(2);
-
-        // If the request is AJAX, return the posts partial view
+            // $latestUpdatedTimestamp = $posts->first()->updated_at;
+            // dd(changeDateFormate($latestUpdatedTimestamp, 'd m y'));
+            
         if ($request->ajax()) {
-            return view('blog.posts')->with('posts', $publishedPosts);
-            // ->render();
+            $view = view('blog.posts', compact('posts'))->render();
+    
+            return response()->json(['html' => $view]);
         }
-
-        // If it's a regular request, return the main blog view
-        return view('blog.blog')->with('posts', $publishedPosts);
+        return view('blog.blog', compact('posts'));
     }
-
+    
 
     public function index()
     {
@@ -50,5 +49,15 @@ class BlogController extends Controller
       ->with('post', Post::where('slug',$slug)->first());
     }
 
+
+   public function search(Request $request)
+{
+    $search = $request->input('search');
+    $posts = Post::where('title', 'like', '%' . $search . '%')
+        ->orWhere('description', 'like', '%' . $search . '%')
+        ->get(); 
+
+    return view('blog.posts')->with('posts', $posts);
+}
     
 }

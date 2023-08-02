@@ -23,10 +23,26 @@ class UserBlogController extends Controller
             return redirect()->route('login');
         }
         if ($request->ajax()) {
-            return view('blog.posts')->with('posts',$posts);
+            $view = view('blog.user-posts', compact('posts'))->render();
+
+            return response()->json(['html' => $view]);
         }
     
-        return view('blog.user-blog')->with('posts', $posts);
+        return view('blog.user-blog', compact('posts'));
+    }
+//Blog search function
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $user = Auth::user();
+        $posts = $user->posts()
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            })
+            ->get();
+    
+        return view('blog.user-posts')->with('posts', $posts);
     }
     
     public function index()

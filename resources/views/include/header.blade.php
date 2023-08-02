@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
 
-
+    <script src="http://benalman.com/code/projects/jquery-throttle-debounce/jquery.ba-throttle-debounce.js"></script>
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -67,14 +67,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('about') }}">About Us</a>
                                 </li>
-                                @guest
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('blog') }}">Blog</a>
-                                    </li>
-                                @endguest
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('blog') }}">Blogs</a>
+                                </li>
+
                                 @auth
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('user.blog') }}">Blog</a>
+                                        <a class="nav-link" href="{{ route('user.blog') }}">User Blog</a>
                                     </li>
                                 @endauth
 

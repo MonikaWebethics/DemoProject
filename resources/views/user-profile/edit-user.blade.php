@@ -255,3 +255,40 @@
     </div>
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#country-dd').change(function(event) {
+            var countryId = this.value;
+
+            $('#state-dd').html('');
+            $.ajax({
+                url: "{{ route('fetch-state-user') }}",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    country_id: countryId,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    $('#state-dd').html(
+                        '<option value="" selected disabled>Select State</option>');
+                    $.each(response.states, function(index, val) {
+                        $('#state-dd').append('<option value="' + val.id + '"> ' +
+                            val.state + ' </option>'
+                        );
+                    });
+
+                    $('#state-container').show();
+                }
+            });
+        });
+
+
+        if ($('#state-dd option').length > 1) {
+
+            $('#state-container').show();
+        }
+    });
+</script>

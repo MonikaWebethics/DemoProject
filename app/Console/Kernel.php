@@ -12,11 +12,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('message:daily')
+         ->everyTwentySeconds()
+        //  ->withoutOverlapping()
+        // ->runInBackground()
+         ->appendOutputTo('schedule.log');
+
     }
 
     /**
-     * Register the commands for the application.
+     * Register the commands for the application...
      */
     protected function commands(): void
     {

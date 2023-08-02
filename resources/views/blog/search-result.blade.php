@@ -1,4 +1,4 @@
-@foreach ($posts as $post)
+@forelse ($posts as $post)
     <div class="col-lg-6 col-md-6 col-sm-12 px-5 pb-5">
         <a href="/blog/{{ $post->slug }}">
             <img src="{{ asset('blog-images/' . $post->image_path) }}" class="img-fluid">
@@ -21,8 +21,7 @@
         </div>
 
     </div>
-@endforeach
-{{-- @empty
+@empty
     <div class="col-12 py-5 text-center">
         <div class="py-3">
             <div class="alert alert-info">
@@ -30,4 +29,4 @@
             </div>
         </div>
     </div>
-@endforelse --}}
+@endforelse

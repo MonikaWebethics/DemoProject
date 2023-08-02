@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Mail\EmailVerification;
-use App\Models\{User,Country,State};
+use App\Models\User;
+use App\Models\Country;
+use App\Models\State;
 
 class RegisterController extends Controller
 { 
     use RegistersUsers;
-     /**
+
+    /**
      * Show the registration form.
      *
      * @return \Illuminate\View\View
@@ -23,16 +26,17 @@ class RegisterController extends Controller
     public function showRegistrationForm(): View
     {
         return view('auth.register')
-        ->with('countries',Country::get());
+            ->with('countries', Country::get());
     }
-    public function fatchState(Request $request){
-        $data['states'] =State::where('country_id',$request->country_id)->get(['state','id']);
+
+    public function fatchState(Request $request)
+    {
+        $data['states'] = State::where('country_id', $request->country_id)->get(['state', 'id']);
         return response()->json($data);
-    
     }
     
     protected $redirectTo = '/email/verify';
-    
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -53,11 +57,11 @@ class RegisterController extends Controller
             'state_id' => 'The state field is required.',
         ]);
     }
-    
 
     protected function create(array $data)
     {
-        return User::create([
+        // Create the user
+        $user = User::create([
             'fname' => $data['fname'],
             'lname' => $data['lname'],
             'email' => $data['email'],
@@ -67,17 +71,11 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'hobbies' => json_encode($data['hobbies']),
         ]);
-        Mail::to($user->email)->send(new EmailVerification($user));
 
+        // event(new Registered($user));
+
+        // Send the email verification notification
+        // $user->sendEmailVerificationNotification();
         return $user;
     }
-
-//     protected function registered(Request $request, $user)
-// {
-//     $this->guard()->logout();
-
-//     return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
-// }
-
-
 }

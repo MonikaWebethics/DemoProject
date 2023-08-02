@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container py-5">
-        @if (session('status'))
+        @if (session()->has('status'))
             <div class="alert alert-success">
-                {{ session('status') }}
+                <p>{{ session()->get('status') }}</p>
             </div>
         @endif
         <div class="row">
@@ -19,7 +19,7 @@
                     <h2 class="pb-3 text-center">Login to your account</h2>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="mb-3">
+                        <div class="input-style mb-3">
                             <label for="InputEmail1" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Email Address') }}</label>
                             <div class="mb-3 d-flex  border border-1">
@@ -31,11 +31,9 @@
                                             fill="#C8C8C8"></path>
                                     </svg>
                                 </span>
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="email" type="email" placeholder="Your e-mail"
-                                        class="form-control border border-0 " name="email" value="{{ old('email') }}"
-                                        autocomplete="email" autofocus>
-                                </span>
+                                <input id="email" type="email" placeholder="Your e-mail"
+                                    class="form-control border border-0 " name="email" value="{{ old('email') }}"
+                                    autocomplete="email" autofocus>
                             </div>
                             @error('email')
                                 <div class="text-danger">{{ $message }}</div>
@@ -45,7 +43,7 @@
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label fw-bold label-log"
                                 style="color: #6b6c6f">{{ __('Password') }}</label>
-                            <div class="mb-3 d-flex  border border-1">
+                            <div class="input-style mb-3 d-flex  border border-1">
                                 <span class="py-lg-2 ps-lg-3 py-2 ps-2">
                                     <svg width="27" height="15" viewBox="0 0 27 15" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -54,11 +52,8 @@
                                             fill="#C8C8C8"></path>
                                     </svg>
                                 </span>
-                                <span class="input-style d-flex align-items-center justify-content-center">
-                                    <input id="password" type="password" placeholder="Enter password"
-                                        class="form-control border border-0 " name="password"
-                                        autocomplete="current-password">
-                                </span>
+                                <input id="password" type="password" placeholder="Enter password"
+                                    class="form-control border border-0 " name="password" autocomplete="current-password">
                                 <span class="ms-auto d-flex align-items-center justify-content-center pe-3"><svg
                                         width="20" height="14" viewBox="0 0 20 14" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">

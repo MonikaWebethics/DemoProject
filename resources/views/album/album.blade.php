@@ -22,32 +22,6 @@
             </div>
             <div id="Result" class="row">
             </div>
-
-            {{-- <div class="row">
-                @foreach ($albums as $album)
-                    <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
-                        <div class="album-card">
-                            <a href="AlbumImages/{{ $album->id }}" style="text-decoration: none; color: inherit;">
-                                <img src="{{ asset('album-images/' . $album->image_path) }}" class="img-fluid"
-                                    alt="Album Image">
-                                <h4 class="text-center pt-3">{{ $album->title }}</h4>
-                            </a>
-                            <div class="row justify-content-start mt-2">
-                                <div class="col-12 text-center">
-                                    <form action="album/{{ $album->id }}" method="POST" class="deleteForm">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirmDelete(event)">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div> --}}
-
-
         </div>
     </div>
 @endsection
@@ -59,4 +33,63 @@
             event.preventDefault();
         }
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        fetch_album();
+
+        function fetch_album(query = '') {
+            $.ajax({
+                url: "{{ route('searchAlbum') }}",
+                method: 'GET',
+                data: {
+                    query: query
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var output = '';
+                    var total_row = data.data.length;
+
+                    if (total_row > 0) {
+                        data.data.forEach(function(album) {
+                            output += '<div class="col-lg-4 col-md-6 col-sm-12 pb-4">';
+                            output += '<div class="album-card">';
+                            output += '<a href="{{ url('AlbumImages') }}/' + album.id +
+                                '" style="text-decoration: none; color: inherit;">';
+                            output += '<img src="{{ asset('album-images') }}/' + album
+                                .image_path + '" class="img-fluid" alt="Album Image">';
+                            output += '<h4 class="text-center pt-3">' + album.title +
+                                '</h4>';
+                            output += '</a>';
+                            output += '<div class="row justify-content-start mt-2">';
+                            output += '<div class="col-12 text-center">';
+                            output += '<form action="{{ url('album') }}/' + album.id +
+                                '" method="POST" class="deleteForm">';
+                            output += '@csrf';
+                            output += '@method('delete')';
+                            output +=
+                                '<button type="submit" class="btn btn-danger" onclick="return confirmDelete(event)">Delete</button>';
+                            output += '</form>';
+                            output += '</div>';
+                            output += '</div>';
+                            output += '</div>';
+                            output += '</div>';
+                        });
+                    } else {
+                        output = '<div class="alert alert-primary">No Data Found</div>'
+                    }
+
+                    $('#Result').html(output);
+                }
+            })
+        }
+
+        // $(document).on('keyup', '#blogsearch', $.debounce(1500, function() {
+        $(document).on('keyup', '#search', $.debounce(1500, function() {
+            var query = $(this).val();
+            fetch_album(query);
+        }));
+    })
 </script>

@@ -16,7 +16,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 
-
 Route::middleware('auth','verified')->group(function () {
     Route::get('user-profile', [UserProfileController::class, 'userProfile'])
     ->name('userProfile');
@@ -27,7 +26,7 @@ Route::middleware('auth','verified')->group(function () {
 ->name('fetch-state-user');
     Route::post('user/profile', [UpdateController::class, 'updateProfile'])->name('user.profile.update');
     Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
-    Route::get('/search', [AlbumController::class, 'search'])->name('searchAlbum');
+    // Route::get('/search', [AlbumController::class, 'search'])->name('searchAlbum');
     Route::group(['prefix' => 'album'], function () {
         Route::get('/', [AlbumController::class, 'album'])->name('album');
         Route::get('/search', [AlbumController::class, 'search'])->name('searchAlbum');
@@ -45,6 +44,7 @@ Route::middleware('auth','verified')->group(function () {
     });
 
     Route::group(['prefix' => 'blog'], function () {
+    Route::get('/search', [UserBlogController::class, 'search'])->name('user.search');
     Route::get('/user-blog', [UserBlogController::class, 'blog'])->name('user.blog');
     Route::get('/user/{slug}', [BlogController::class, 'show'])->name('user.show');
     Route::get('/create', [UserBlogController::class, 'create'])->name('create');
@@ -74,6 +74,7 @@ Route::post('api/fetch-state', [RegisterController::class, 'fatchState'])
 });
 
   
+Route::get('/search', [BlogController::class, 'search'])->name('search.blog');
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', [BlogController::class, 'blog'])->name('blog');
     Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
@@ -85,28 +86,26 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('/about-us','viewAbout')->name('about');
 });
 
+
+// Auth::routes(['verify' => true]);
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
-    // Add a success flash message to indicate successful email verification.
     session()->flash('status', 'Email verification successful! Please log in.');
-
-    // If the user is logged in, log them out to force them to log in again.
-    if (Auth::check()) {
-        Auth::logout();
-    }
-
-    // Redirect the user to the login page.
-    return redirect()->route('login');
+     if (Auth::check()) {
+                Auth::logout();
+            }
+            return redirect()->route('login');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
+// Route for resending verification email
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-    return view('auth.verify');
+    return back()->with('status', 'Verification email sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
